@@ -1,0 +1,45 @@
+
+
+<!-- Modules: It allows us to organize code into separate files and import/export functionalities between them -->
+ <!-- In ES6, we can use the `import` and `export` keywords to achieve this. -->
+<!-- Example: -->
+<!-- // In mathUtils.js -->
+<!-- export function add(a, b) {
+    return a + b;
+}
+export function subtract(a, b) {
+    return a - b;
+} -->
+<!-- // In main.js -->
+<!-- import { add, subtract } from './mathUtils.js'; -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // Example of Default Parameters
+        function greet(name, greeting = "Hello") {
+            return `Hello, ${name}! Welcome to Mathematical World.`;
+        }
+        console.log(greet("Alice")); // Uses default greeting
+        console.log(greet("Bob", "Hi")); // Uses provided greeting
+    </script>
+    <!-- reusing maths_Utils.js which is defined as a separate file -->
+    <script type="module">
+        import { square, cube, factorial, power } from './maths_Util.js';
+
+        // we want to display the results in the HTML body
+        document.body.innerHTML += `<p>Square of 4: ${greet("Bob", "Hi")}</p>`;
+        document.body.innerHTML += `<p>Square of 4: ${square(4)}</p>`;
+        document.body.innerHTML += `<p>Cube of 3: ${cube(3)}</p>`;
+        document.body.innerHTML += `<p>Factorial of 5: ${factorial(5)}</p>`;
+        document.body.innerHTML += `<p>2 raised to the power 3: ${power(2, 3)}</p>`;
+    </script>
+        
+</body>
+</html>
