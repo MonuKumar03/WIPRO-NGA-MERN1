@@ -1,0 +1,19 @@
+// tsconfig.json will help us in compiling the typescript files present in the folder and its subfolders
+{
+  "compilerOptions": {
+    "target": "es6",                          
+    "module": "es6",                     
+    "strict": true,                           
+    "esModuleInterop": true,                  
+    "skipLibCheck": true,                      
+    "forceConsistentCasingInFileNames": true,
+    "outDir": "./dist",
+    "noEmitOnError": false
+  },
+  "include": ["./**/*.ts"]  // this will include all typescript files in the current folder and its subfolders
+}
+
+
+// in order to run main.js in html we have to do following change in above json properties
+// 1. change "module" to "none" from "commonjs"
+// 2.Use <script type="module" src="dis/main.js"></script> in html file to include the compiled js file
