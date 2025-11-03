@@ -1,0 +1,73 @@
+<!-- Here we will connect to MongoDB Atlas, implementing CRUD operations on EduProDB which consists of courses and students, 
+ Instructor and enrollment collections -->
+ <!-- Step 1: Connect to MongoDB Atlas via Connection string  -->
+  <!-- Step 2: Implement CRUD operations -->
+    <!-- Step 3: Display data dynamically on the web page using DOM manipulation -->
+     <!-- Step 4: Implement search functionality -->
+      <!-- Step 5 Close the connection to MongoDB Atlas -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        const { MongoClient } = require('mongodb');
+        const uri = "your_mongodb_atlas_connection_string";
+        // This connection string can be obtained from MongoDB Atlas dashboard after creating a cluster and database user
+        const client = new MongoClient(uri);
+        async function run() {
+            try {
+                await client.connect();
+                console.log("Connected to MongoDB Atlas");
+            } catch (error) {
+                console.error("Error connecting to MongoDB Atlas:", error);
+            }
+        }
+        run();
+
+        // Step 2: Implement CRUD operations via async and await functions as below
+        async function createCourse(course) {
+            const database = client.db('EduProDB');
+            const courses = database.collection('courses');
+            const result = await courses.insertOne(course);
+            console.log(`New course created with the following id: ${result.insertedId}`);
+        }
+        async function getCourses() { //read operation
+            const database = client.db('EduProDB');
+            const courses = database.collection('courses');
+            const courseList = await courses.find({}).toArray();
+            console.log("Courses:", courseList);
+
+                        // Step 3: Display data dynamically on the web page using DOM manipulation
+            const courseContainer = document.getElementById('course-list');
+            courseContainer.innerHTML = '';
+            courseList.forEach(course => {
+                courseContainer.innerHTML += `<div class="card mb-2"><div class="card-body"><h5 class="card-title">${course.title}</h5><p class="card-text">${course.description}</p></div></div>`;
+            });
+        }
+        async function updateCourse(courseId, updatedData) {// updating 
+            const database = client.db('EduProDB');
+            const courses = database.collection('courses');
+            const result = await courses.updateOne({ _id: courseId }, { $set: updatedData });
+            console.log(`${result.matchedCount} document(s) matched the query criteria.`);
+            console.log(`${result.modifiedCount} document(s) was/were updated.`);
+        }
+                async function deleteCourse(courseId) {
+            const database = client.db('EduProDB');
+            const courses = database.collection('courses');
+            const result = await courses.deleteOne({ _id: courseId });
+            console.log(`${result.deletedCount} document(s) was/were deleted.`);
+        }
+        // Step 5 Close the connection to MongoDB Atlas
+        async function closeConnection() {
+            await client.close();
+            console.log("Connection to MongoDB Atlas closed");
+        }   
+        
+    </script>
+</body>
+</html>
