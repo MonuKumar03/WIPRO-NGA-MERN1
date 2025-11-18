@@ -3,16 +3,15 @@ const http = require('http');
 const fs = require('fs');
 const path = require('path');
 
-// Define the hostname and port
+
 const hostname = '127.0.0.1';
 const port = 3000;
 
-// Create the HTTP server
+// Creating the HTTP server
 const server = http.createServer((req, res) => {
-  // Define the file path
   let filePath = path.join(__dirname, 'public', req.url === '/' ? 'index.html' : req.url);
 
-  // Get the file extension
+  // Getting the file extension
   const ext = path.extname(filePath);
   let contentType = 'text/html';
 
