@@ -9,7 +9,7 @@
 // Step 4: Close the connection when done
 
 import { MongoClient } from "mongodb";
-const uri = "mongodb+srv://monujaiswalk123_db_user:Atlas123@eduprodb.dxdiyz3.mongodb.net/";
+const uri = "/";
 const client = new MongoClient(uri);
 async function run() {
     const client: MongoClient = new MongoClient(uri); //creating a new MongoClient instance 
